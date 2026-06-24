@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/legion-charge/' : '/',
   resolve: {
     alias: {
       '@core': path.resolve(__dirname, 'src/core'),
@@ -10,4 +11,10 @@ export default defineConfig({
       '@ui': path.resolve(__dirname, 'src/ui'),
     },
   },
-});
+  server: {
+    host: true,
+  },
+  build: {
+    target: 'es2022',
+  },
+}));
