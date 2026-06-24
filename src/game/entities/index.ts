@@ -131,6 +131,7 @@ export class Projectile {
     pierce?: boolean;
     width?: number;
     height?: number;
+    ownerY?: number;
   }) {
     this.id = params.id;
     this.x = params.x;
@@ -144,6 +145,7 @@ export class Projectile {
     if (params.pierce) this.pierce = true;
     if (params.width) this.width = params.width;
     if (params.height) this.height = params.height;
+    if (params.ownerY !== undefined) this.ownerY = params.ownerY;
   }
 
   update(dt: number): void {

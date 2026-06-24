@@ -139,7 +139,7 @@ export class SceneRenderer {
   }
 
   private drawProjectiles(game: Game): void {
-    for (const p of game.projectiles) {
+    for (const p of game.combat.projectiles) {
       if (!p.alive) continue;
 
       const g = new Graphics();

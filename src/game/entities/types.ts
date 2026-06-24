@@ -60,10 +60,10 @@ export interface UpgradeOption {
 /** 单位基础数据表 */
 export const UNIT_BASE_STATS: Record<UnitType, UnitStats & { skill: SkillConfig }> = {
   [UnitType.Hero]: {
-    hp: 100,
-    attack: 15,
-    attackSpeed: 800,
-    range: 300,
+    hp: 150,
+    attack: 18,
+    attackSpeed: 700,
+    range: 600,
     moveSpeed: 0,
     skill: { type: SkillType.Projectile },
   },

@@ -1,4 +1,4 @@
-import { PlayerUnit, Enemy, Projectile, UnitType } from './entities';
+import { PlayerUnit, Enemy, UnitType } from './entities';
 import { GameState, StateMachine } from '../core';
 import { CombatSystem } from './systems/CombatSystem';
 import { MovementSystem } from './systems/MovementSystem';
@@ -16,7 +16,6 @@ export class Game {
 
   playerUnits: PlayerUnit[] = [];
   enemies: Enemy[] = [];
-  projectiles: Projectile[] = [];
 
   currentWaveNumber: number = 0;
   waveCompleted: boolean = false;
@@ -24,7 +23,7 @@ export class Game {
   /** 当前三选一选项 */
   currentChoices: CardChoice[] = [];
 
-  private combat: CombatSystem;
+  readonly combat: CombatSystem;
   private movement: MovementSystem;
   private wave: WaveSystem;
 
@@ -92,13 +91,9 @@ export class Game {
     // 4. 移动
     this.movement.update(dt, this.playerUnits, this.enemies, this.gameWidth, this.gameHeight);
 
-    // 5. 战斗
-    const newProjectiles = this.combat.update(dt, this.playerUnits, this.enemies, this.gameWidth);
-    this.projectiles.push(...newProjectiles);
-
-    // 6. 投射物更新
+    // 5. 战斗 & 投射物更新
+    this.combat.update(dt, this.playerUnits, this.enemies, this.gameWidth);
     this.combat.updateProjectiles(dt, this.playerUnits, this.enemies);
-    this.projectiles = this.projectiles.filter((p) => p.alive);
 
     // 7. 敌人近战伤害
     this.handleEnemyMeleeDamage(dt);
